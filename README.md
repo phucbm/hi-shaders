@@ -1,4 +1,4 @@
-# 👋 Hello Shaders
+# 🚀 My journey to the world of Shaders
 
 This repo is where I store exercises and recaps when reading [The Book of Shaders](https://thebookofshaders.com/).
 
@@ -35,7 +35,7 @@ Read more at chapter
 and
 📗 [04 - Running your shader](https://thebookofshaders.com/04/)
 
-See 💎 [Demo](/exercises/00/)
+See 💎 [Demo](exercises/00/)
 
 ### 01
 
