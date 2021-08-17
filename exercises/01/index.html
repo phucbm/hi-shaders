@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Title</title>
+    <style>
+        body {margin:0;padding:0;}
+        html, body {overflow:hidden;}
+        .webgl {position:fixed; top:0; left:0; outline:none;}
+    </style>
+
+    <script src="../../assets/three.min.js"></script>
+</head>
+<body>
+
+<canvas class="webgl"></canvas>
+
+<!-- Vertex Shader -->
+<script id="vertexShader" type="x-shader/x-vertex">
+        void main() {
+            gl_Position = vec4( position, 1.0 );
+        }
+</script>
+
+<!-- Fragment Shader -->
+<script id="fragmentShader" type="x-shader/x-fragment">
+        uniform vec2 u_resolution; // Canvas size (width,height)
+        uniform float u_time; // Time in seconds since load
+
+        void main() {
+            //vec2 st = gl_FragCoord.xy / u_resolution.xy;
+            //gl_FragColor = vec4( st.x, st.y, 0.0, 1.0);
+
+            gl_FragColor = vec4( abs(sin(u_time)), 0.0, 0.0, 1.0 );
+        }
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
