@@ -35,8 +35,20 @@ Read more at chapter
 and
 📗 [04 - Running your shader](https://thebookofshaders.com/04/)
 
-See 💎 [Demo](exercises/00/)
+💎 [Result](exercises/00/)
 
-### 01
+### 01 - Algorithmic drawing
 
-https://thebookofshaders.com/05/
+📓 [05 - Algorithmic drawing](https://thebookofshaders.com/05/)
+
+- https://www.iquilezles.org/www/articles/functions/functions.htm
+
+- https://renderman.pixar.com/learn
+
+- http://www.flong.com/archive/texts/code/shapers_poly/
+
+💎 [Result](exercises/01/)
+
+### 02 - Shape Functions
+
+https://thebookofshaders.com/06/

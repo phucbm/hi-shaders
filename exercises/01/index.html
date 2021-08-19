@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01 - Title</title>
+    <title>01 - Algorithmic drawing</title>
     <style>
         body {margin:0;padding:0;}
         html, body {overflow:hidden;}
@@ -25,15 +25,71 @@
 
 <!-- Fragment Shader -->
 <script id="fragmentShader" type="x-shader/x-fragment">
-        uniform vec2 u_resolution; // Canvas size (width,height)
-        uniform float u_time; // Time in seconds since load
+// Author: Inigo Quiles
+// Title: Parabola
 
-        void main() {
-            //vec2 st = gl_FragCoord.xy / u_resolution.xy;
-            //gl_FragColor = vec4( st.x, st.y, 0.0, 1.0);
+#ifdef GL_ES
+precision mediump float;
+#endif
 
-            gl_FragColor = vec4( abs(sin(u_time)), 0.0, 0.0, 1.0 );
-        }
+#define PI 3.14159265359
+
+uniform vec2 u_resolution;
+uniform float u_time;
+
+//  Function from Iñigo Quiles
+//  www.iquilezles.org/www/articles/functions/functions.htm
+float parabola( float x, float k ){
+    return pow( 4.0*x*(1.0-x), k );
+}
+
+float plot(vec2 st, float pct){
+  return  smoothstep( pct-0.02, pct, st.y) -
+          smoothstep( pct, pct+0.02, st.y);
+}
+float quaImpulse( float k, float x )
+{
+    return 2.0*sqrt(k)*x/(1.0+k*x*x);
+}
+float sinc( float x, float k )
+{
+    float a = PI*((k*x-1.0));
+    return sin(a)/a;
+}
+float gain(float x, float k)
+{
+    float a = 0.5*pow(2.0*((x<0.5)?x:1.0-x), k);
+    return (x<0.5)?a:1.0-a;
+}
+float expStep( float x, float k, float n )
+{
+    return exp( -k*pow(x,n) );
+}
+void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution;
+
+    //float y = sin(st.x + u_time);
+    //float y = abs(sin(st.x + u_time));
+    //float y = ceil(sin(st.x + u_time));
+    //float y = mod(st.x + u_time * 2.0, 0.5);
+    //float y = sign(st.x + u_time);
+    //float y = clamp(st.x, 0.0, 1.0);
+    //float y = fract(st.x + u_time);
+    //float y = pow(st.x, 2.0);
+    //float y = quaImpulse(st.x + u_time * 2.0, 1.0);
+    //float y = sinc(st.x + u_time, 1.0);
+    //float y = expStep(st.x, sin(u_time) * 2.0, cos(u_time) * 5.0);
+    //float y = gain(quaImpulse(st.x + u_time * 2.0, 1.0), sin(u_time));
+    float y = gain(expStep(st.x, sin(u_time) * 2.0, sin(u_time) * 2.0), sin(u_time * 5.0));
+
+
+    vec3 color = vec3(y);
+
+    float pct = plot(st,y);
+    color = (1.0-pct)*color+pct*vec3(0.0,1.0,0.0);
+
+    gl_FragColor = vec4(color,1.0);
+}
 </script>
 
 <script src="script.js"></script>

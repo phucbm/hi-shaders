@@ -44,7 +44,7 @@ const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 }
-window.addEventListener('resize', () => {
+const update = () => {
     // Update sizes
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
@@ -60,7 +60,9 @@ window.addEventListener('resize', () => {
     // Update uniform's resolution
     uniforms.u_resolution.value.x = sizes.width;
     uniforms.u_resolution.value.y = sizes.height;
-});
+}
+
+window.addEventListener('resize', update);
 
 // full screen on double click
 window.addEventListener('dblclick', () => {
@@ -94,6 +96,8 @@ camera.position.z = 1;
 scene.add(camera);
 
 
+
+
 /**
  * Renderer
  */
@@ -101,6 +105,8 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas});
 renderer.setSize(sizes.width, sizes.height);
 //renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // for better performance
+
+update();
 
 
 /**
